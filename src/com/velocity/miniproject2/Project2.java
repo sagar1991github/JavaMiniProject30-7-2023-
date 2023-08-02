@@ -10,20 +10,46 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
+public class Project2  extends JFrame implements ActionListener {
 
-public class OnlineTest extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID= 1L;
 	 JLabel label;
+	 JLabel label2;
 	 JRadioButton radioButton[]=new JRadioButton[5];
 	 JButton btnNext,btnBookmark;
+	 JButton btnRegister,btnLogin;
 	 ButtonGroup bg;
 	 int count=0,question=0,x=1,y=1, now=0;
 	 int m[] =new int[10];
 	 int j;
-	 
+	
+	 // create JFrame with Student login and student registration
+	 public  studentRegisterAndLogin() {
+		      
+		   label2 =new JLabel();
+		   add (label2);
+		   btnRegister = new JButton("STUDENT REGISTRATION");
+		   btnLogin = new JButton("STUDENT LOGIN");
+		   btnRegister.addActionListener(this);
+		   btnLogin.addActionListener(this);
+		   add(btnRegister);
+		   add(btnLogin);
+		   set();
+		   label.setBounds(30, 40, 450, 20);
+		   // button for student login registration
+		   
+		  
+	      btnRegister.setBounds(100, 240, 100, 25);
+	      btnLogin.setBounds(270,240, 100, 25);
+	      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	      setLayout(null);
+	      setLocation(250,100);
+	      setVisible(true);
+	      setSize(600,350);
+	 }      
 	// create jframe with radioButton and jButton
-   OnlineTest (String s) {
+  Project2 (String s) {
 	   super(s);
 	   label=new JLabel();
 	   add (label);
@@ -46,18 +72,18 @@ public class OnlineTest extends JFrame implements ActionListener {
 	   radioButton[1].setBounds(50, 110, 200, 20);
 	   radioButton[2].setBounds(50, 140, 200, 20);
 	   radioButton[3].setBounds(50, 170, 200, 20);
-       btnNext.setBounds(100, 240, 100, 25);
-       btnBookmark.setBounds(270,240, 100, 25);
-       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       setLayout(null);
-       setLocation(250,100);
-       setVisible(true);
-       setSize(600,350);
-       
-   }
-   
+      btnNext.setBounds(100, 240, 100, 25);
+      btnBookmark.setBounds(270,240, 100, 25);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      setLayout(null);
+      setLocation(250,100);
+      setVisible(true);
+      setSize(600,350);
+      
+  }
+  
 	// handle all actions based on event
-   public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e) {
 	   if (e.getSource() == btnNext) {
 		   if(check())
 			   count = count * 1;
@@ -102,10 +128,10 @@ public class OnlineTest extends JFrame implements ActionListener {
 	    	     JOptionPane.showMessageDialog(this,"Correct answers="+count);
 	    	     System.exit(0);
 	     }
-   }
-   // Set question with options
-   
-   void set() {
+  }
+  // Set question with options
+  
+  void set() {
 	   radioButton[4].setSelected(true);
 	   
 	   if(question == 0) {
@@ -131,7 +157,7 @@ public class OnlineTest extends JFrame implements ActionListener {
 	   }
 	   if(question == 3) {
 		   label.setText("question 4: Which is new method introduced in java 8 to iterate over a collection ?");
-		   radioButton[0].setText("for(String 1 : StringList)");
+		   radioButton[0].setText("fo(String 1 : StringList)");
 		   radioButton[1].setText("foreach(String 1 : String(List)"); 	
 		   radioButton[2].setText("StringList.forEach()");
 		   radioButton[3].setText("List.for()");
@@ -182,42 +208,50 @@ public class OnlineTest extends JFrame implements ActionListener {
 	   label.setBounds(30,40,450,20);
 	   for(int i=0,j=0; i<=90;i +=30,j++) 
 		   radioButton[j].setBounds(50, 80+i,200 , 20);
-   }
-   
-   
-    // Declare a right answers
-   
-     boolean check() {
-    	 if (question == 0)
-    		 return ( radioButton[1].isSelected());
-    	 if (question == 1)
-    		 return ( radioButton[1].isSelected());
-    	 if (question == 2)
-    		 return ( radioButton[0].isSelected());
-    	 if (question == 3)
-    		 return ( radioButton[2].isSelected());
-    	 if (question == 4)
-    		 return ( radioButton[0].isSelected());
-    	 if (question == 5)
-    		 return ( radioButton[0].isSelected());
+  }
+  
+  
+   // Declare a right answers
+  
+    boolean check() {
+   	 if (question == 0)
+   		 return ( radioButton[1].isSelected());
+   	 if (question == 1)
+   		 return ( radioButton[1].isSelected());
+   	 if (question == 2)
+   		 return ( radioButton[0].isSelected());
+   	 if (question == 3)
+   		 return ( radioButton[2].isSelected());
+   	 if (question == 4)
+   		 return ( radioButton[0].isSelected());
+   	 if (question == 5)
+   		 return ( radioButton[0].isSelected());
 		   
-    	 if (question == 6)
-    		 return ( radioButton[1].isSelected());
+   	 if (question == 6)
+   		 return ( radioButton[1].isSelected());
 		   
-    	 if (question == 7)
-    		 return ( radioButton[2].isSelected());
+   	 if (question == 7)
+   		 return ( radioButton[2].isSelected());
 		   
-    	 if (question == 8)
-    		 return ( radioButton[0].isSelected());
+   	 if (question == 8)
+   		 return ( radioButton[0].isSelected());
 		   
-    	 if (question == 9)
-    		 return ( radioButton[0].isSelected());
+   	 if (question == 9)
+   		 return ( radioButton[0].isSelected());
 		   return false;    	 
-     }	   
+    }	   
 	   
 	   	public static void main(String[] args) {
+	   	
+	   		Project2 s3 =new Project2("WELCOME TO STUDENT REGISTRATION AND LOGIN");
+	   		s3.studentRegisterAndLogin();
+	   		
 		 new OnlineTest("Welcome To Quiz Based  Application");
 
 	}
 
+
 }
+
+	
+
