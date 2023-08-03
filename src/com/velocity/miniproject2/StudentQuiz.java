@@ -1,13 +1,17 @@
 package com.velocity.miniproject2;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.Scanner;
 
-public class StudentQuiz {
+public class StudentQuiz  {
 	public static Scanner input= new Scanner( System.in);
 
 	public static int choose,choose1,choose2,choose3,choose4,choose5,choose6,choose7,choose8,choose9,choose10,count=0;
 	public static String name,email;
 	public static long mobile,password;
+	public static int result;
 	
 	public static void StudentLoginAndRegister() {
 		System.out.println("==================================================================================");
@@ -22,19 +26,19 @@ public class StudentQuiz {
 		choose=input.nextInt();
 		if(choose==1) {
 			
-			System.out.println("Student First Name");
+			System.out.println("Student  Name=");
 			name=input.next();
 			System.out.println("==============================================================================");
 			
-			System.out.println("Student E-mail id");
+			System.out.println("Student E-mail id=");
 			email=input.next();
 			System.out.println("==============================================================================");
 			
-			System.out.println("Student Mobile number");
+			System.out.println("Student Mobile number=");
 			mobile=input.nextLong();
 			System.out.println("==============================================================================");
 			
-			System.out.println("Student password");
+			System.out.println("Student password=");
 			password=input.nextLong();
 			System.out.println("==============================================================================");
 			
@@ -44,12 +48,12 @@ public class StudentQuiz {
 		} else if(choose == 2){
 			System.out.println("=================================================================================");
 			
-			System.out.println("Student Name");
+			System.out.println("Student Name=");
 			name=input.next();
 			System.out.println("Student="+name);
 			System.out.println("=================================================================================");
 			
-			System.out.println("Student Password");
+			System.out.println("Student Password=");
 			password=input.nextLong();
 			System.out.println("Password="+password);
 			System.out.println("=================================================================================");
@@ -226,10 +230,33 @@ public class StudentQuiz {
 			
 		}
 		
+		public static void insertData() {
+			try {
+				String insertQuery = "insert into studentquizdata(studentName,result)"+" values('name','result')";
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/user", "root", "root");
+				Statement statement = con.createStatement();
+				statement.execute(insertQuery);
+				System.out.println("Insertion Done!!!!");
+				statement.close();
+				con.close();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public static void displayresult() {
+			
+			System.out.println("Student Name "+name);
+			System.out.println("Total Result = "+count);
+		}
 		public static void main(String[] args) {
 		
            StudentQuiz.StudentLoginAndRegister();
            StudentQuiz.displayQuestion();
+           StudentQuiz.insertData();
+           StudentQuiz.displayresult();
 	}
 
 }
