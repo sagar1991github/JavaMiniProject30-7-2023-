@@ -2,17 +2,22 @@ package com.velocity.miniproject2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+
+
 public class StudentQuiz  {
 	public static Scanner input= new Scanner( System.in);
+	public static Connection con = null;
+	public static PreparedStatement ps = null;
 
-	public static int choose,choose1,choose2,choose3,choose4,choose5,choose6,choose7,choose8,choose9,choose10,count=0;
+	public static int choose,choose1,choose2,choose3,choose4,choose5,choose6,choose7,choose8,choose9,choose10,count=1;
 	public static String name,email;
 	public static long mobile,password;
 	public static int result;
-	
 	public static void StudentLoginAndRegister() {
 		System.out.println("==================================================================================");
 		
@@ -78,7 +83,7 @@ public class StudentQuiz  {
 			choose1=input.nextInt();
 		if (choose1==2) {
 			System.out.println("your Answer is= Serialization ");
-			System.out.println("Your answer is right"+count++);
+			System.out.println("Your answer is right="+count++);
 			
 		} else {
 			System.out.println("Your answer is Wrong");
@@ -94,7 +99,7 @@ public class StudentQuiz  {
 			choose2=input.nextInt();
 			if (choose2==2) {
 				System.out.println("your Answer is= IOException ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -107,7 +112,7 @@ public class StudentQuiz  {
 			choose3=input.nextInt();
 			if (choose3==1) {
 				System.out.println("your Answer is= True ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -123,7 +128,7 @@ public class StudentQuiz  {
 			choose4=input.nextInt();
 			if (choose4==3) {
 				System.out.println("your Answer is= StringList.foreach() ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -139,7 +144,7 @@ public class StudentQuiz  {
 			choose5=input.nextInt();
 			if (choose5==1) {
 				System.out.println("your Answer is= Nashorn ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -155,7 +160,7 @@ public class StudentQuiz  {
 			
 			if (choose6==1) {
 				System.out.println("your Answer is= Files.readAllLines() ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -170,7 +175,7 @@ public class StudentQuiz  {
 			choose7=input.nextInt();
 			if (choose7==2) {
 				System.out.println("your Answer is= Autoclosable ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -186,7 +191,7 @@ public class StudentQuiz  {
 			choose8=input.nextInt();
 			if (choose8==3) {
 				System.out.println("your Answer is= SessionManagement ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -202,7 +207,7 @@ public class StudentQuiz  {
 			choose9=input.nextInt();
 			if (choose9==1) {
 				System.out.println("your Answer is= True ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -218,7 +223,7 @@ public class StudentQuiz  {
 			choose10=input.nextInt();
 			if (choose10==1) {
 				System.out.println("your Answer is= Attached ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -229,10 +234,9 @@ public class StudentQuiz  {
 			System.out.println("==================================================================================");
 			
 		}
-		
-		public static void insertData() {
+		public static void insertdata() {
 			try {
-				String insertQuery = "insert into studentquizdata(studentName,result)"+" values('name','result')";
+				String insertQuery = "insert into studentquizdata2(studentname,result)"+" values('name','count')";
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/user", "root", "root");
 				Statement statement = con.createStatement();
@@ -241,22 +245,69 @@ public class StudentQuiz  {
 				statement.close();
 				con.close();
 				
+				
 			}catch(Exception e) {
-				e.printStackTrace();
+				
+					e.printStackTrace();
+				}
 			}
-		}
-		
-		public static void displayresult() {
+			public static void displayresult() {
 			
-			System.out.println("Student Name "+name);
+			System.out.println("Student Name= "+name);
 			System.out.println("Total Result = "+count);
 		}
+		
+				
+				public static void inserintostudentquizdata(String name,int result) {
+					try {
+						con = JDBCConnection.getConnectionDetails();
+						String query = "insert into employee(studentnamename,result)" + "values(?,?)";
+						    ps = con.prepareStatement(query);
+						    ps.setString(1,name);
+						    ps.setInt(2,result);
+						   
+			                  
+						    int i = ps.executeUpdate();
+						    
+						  System.out.println("Data insertion done successful!!!!!!!");
+						  
+				} catch (Exception e) {
+					
+				} finally {
+					try {
+					con.close();
+				} catch (SQLException e) {
+					// to auto generated catch block
+					e.printStackTrace();
+				}
+}
+}
+			
+				public static void execute(int input) {
+					Scanner sc = new Scanner(System.in);
+				
+					
+					for(int i=0;i<input;i++) {
+						System.out.println("Enter First Name >>");
+						String name=sc.next();
+						System.out.println("Enter your result >>");
+						String result=sc.next();
+			
+						
+						return (name,result);
+					}
+				}
+			
 		public static void main(String[] args) {
 		
            StudentQuiz.StudentLoginAndRegister();
            StudentQuiz.displayQuestion();
-           StudentQuiz.insertData();
            StudentQuiz.displayresult();
-	}
-
+       	   StudentQuiz.insertdata();
+       	   StudentQuiz.execute(2);
+       	   
+       	   }
 }
+            
+
+
