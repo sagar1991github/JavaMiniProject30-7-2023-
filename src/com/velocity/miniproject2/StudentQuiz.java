@@ -3,6 +3,7 @@ package com.velocity.miniproject2;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -14,11 +15,41 @@ public class StudentQuiz  {
 	public static Connection con = null;
 	public static PreparedStatement ps = null;
 
-	public static int choose,choose1,choose2,choose3,choose4,choose5,choose6,choose7,choose8,choose9,choose10,count=1;
+	public static int opera,choose,choose1,choose2,choose3,choose4,choose5,choose6,choose7,choose8,choose9,choose10,count=0;
 	public static String name,email;
 	public static long mobile,password;
-	public static int result;
-	public static void StudentLoginAndRegister() {
+	public static int result,id,use;
+	
+	public static void SelectUserOrAdmin() {
+        System.out.println("==================================================================================");
+		
+		System.out.println("Welcome to Quiz Based Application");
+		System.out.println("Choose Any one Operation");
+		System.out.println("1.-USER");
+		System.out.println("2.-ADMIN");
+		
+		System.out.println("==================================================================================");
+		opera=input.nextInt();
+		
+		
+	      if(opera==1) {
+	    	  System.out.println("==================================================================================");
+	    	  System.out.println("USER");
+	    	  use=input.nextInt();
+	    	  System.out.println("You select USER="+use);
+	    	  System.out.println("==================================================================================");
+	      } else {
+	    	  System.out.println("==================================================================================");
+	    	  System.out.println("ADMIN");
+	    	 
+	    	  System.out.println("You select ADMIN=");
+	    	  System.out.println("==================================================================================");
+	    	  
+	      }
+	    	  
+	} 
+		    	  
+	   	public static void StudentLoginAndRegister() {
 		System.out.println("==================================================================================");
 		
 		System.out.println("Welcome to Quiz Based Application");
@@ -30,6 +61,9 @@ public class StudentQuiz  {
 		
 		choose=input.nextInt();
 		if(choose==1) {
+			System.out.println("Student Id=");
+			id=input.nextInt();
+			System.out.println("==============================================================================");
 			
 			System.out.println("Student  Name=");
 			name=input.next();
@@ -52,6 +86,10 @@ public class StudentQuiz  {
 			
 		} else if(choose == 2){
 			System.out.println("=================================================================================");
+			
+			System.out.println("Student Id=");
+			id=input.nextInt();
+			System.out.println("==============================================================================");
 			
 			System.out.println("Student Name=");
 			name=input.next();
@@ -235,15 +273,50 @@ public class StudentQuiz  {
 			
 		}
 		public static void insertdata() {
+		
+			
+			
+			System.out.println("Student Id=");
+			id=input.nextInt();
+			System.out.println("==============================================================================");
+			
+			System.out.println("Student Name=");
+			name=input.next();
+			System.out.println("Student="+name);
+			System.out.println("=================================================================================");
+			
+			System.out.println("Student Result=");
+			count=input.nextInt();
+			System.out.println("Student Result="+count);
+			System.out.println("=================================================================================");
+			
 			try {
-				String insertQuery = "insert into studentquizdata2(studentname,result)"+" values('name','count')";
+				
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/user", "root", "root");
-				Statement statement = con.createStatement();
-				statement.execute(insertQuery);
-				System.out.println("Insertion Done!!!!");
-				statement.close();
-				con.close();
+				
+				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/user2", "root", "root");
+				String insertQuery = "insert into studentquizdata2(id,studentname,result)"+" values(id,'studentname',count)";
+				PreparedStatement ps = con.prepareStatement(insertQuery);
+				System.out.println("Enter student id");
+				
+				ps.setInt(1, id);
+				ps.setString(2 ,name);
+				ps.setInt(3, result);
+			
+				ResultSet rs=ps.executeQuery();
+				
+				if (rs.next()){
+					System.out.println("ID :"+rs.getInt(0));
+					System.out.println("studentname:"+rs.getString(1));
+					System.out.println("Result :"+rs.getInt(2));
+				}
+				else
+				{
+					System.out.println("Invalid student ID.............");
+				}
+
+               rs.close();
+               con.close();
 				
 				
 			}catch(Exception e) {
@@ -252,16 +325,17 @@ public class StudentQuiz  {
 				}
 			}
 			public static void displayresult() {
-			
+				
+			System.out.println("Student Id= "+id);
 			System.out.println("Student Name= "+name);
 			System.out.println("Total Result = "+count);
-		}
+		    }
 		
 				
-				public static void inserintostudentquizdata(String name,int result) {
+				public static  inserintostudentquizdata(String name,int result) {
 					try {
 						con = JDBCConnection.getConnectionDetails();
-						String query = "insert into employee(studentnamename,result)" + "values(?,?)";
+						String query = "insert into studentdataquiz2(id,studentname,result)" + "values(?,?,?)";
 						    ps = con.prepareStatement(query);
 						    ps.setString(1,name);
 						    ps.setInt(2,result);
@@ -294,17 +368,45 @@ public class StudentQuiz  {
 						String result=sc.next();
 			
 						
-						return (name,result);
+						return name,result;
+						
 					}
 				}
-			
+			public static void updateintodata() {
+				try {
+					
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/user", "root","root");
+					String query = "update studentquizdata2 set id =?,studentname=?,result=?";
+					
+					PreparedStatement ps=con.prepareStatement(query);
+					ps.setInt(1,id);
+					ps.setString(2,"studentname");
+					ps.setInt(3,result);
+					
+					ps.executeUpdate();
+					System.out.println("Update is done");
+					ps.close();
+					con.close();
+					} catch (Exception e) {
+						
+					}
+			   
+				    
+					
+				}
+						
 		public static void main(String[] args) {
-		
+			
+		   StudentQuiz.SelectUserOrAdmin();
            StudentQuiz.StudentLoginAndRegister();
            StudentQuiz.displayQuestion();
+           StudentQuiz.insertdata();
+           //StudentQuiz.updateintodata();
            StudentQuiz.displayresult();
-       	   StudentQuiz.insertdata();
-       	   StudentQuiz.execute(2);
+       	  
+           //StudentQuiz.inserintostudentquizdata(name, result);
+       	   //StudentQuiz.execute(2);
        	   
        	   }
 }
