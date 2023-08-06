@@ -1,15 +1,55 @@
 package com.velocity.miniproject2;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
-public class StudentQuiz {
-	public static Scanner input= new Scanner( System.in);
 
-	public static int choose,choose1,choose2,choose3,choose4,choose5,choose6,choose7,choose8,choose9,choose10,count=0;
+
+public class StudentQuiz  {
+	public static Scanner input= new Scanner( System.in);
+	public static Connection con = null;
+	public static PreparedStatement ps = null;
+
+	public static int opera,choose,choose1,choose2,choose3,choose4,choose5,choose6,choose7,choose8,choose9,choose10,count=0;
 	public static String name,email;
 	public static long mobile,password;
+	public static int result,id,use;
 	
-	public static void StudentLoginAndRegister() {
+	public static void SelectUserOrAdmin() {
+        System.out.println("==================================================================================");
+		
+		System.out.println("Welcome to Quiz Based Application");
+		System.out.println("Choose Any one Operation");
+		System.out.println("1.-USER");
+		System.out.println("2.-ADMIN");
+		
+		System.out.println("==================================================================================");
+		opera=input.nextInt();
+		
+		
+	      if(opera==1) {
+	    	  System.out.println("==================================================================================");
+	    	  System.out.println("USER");
+	    	  use=input.nextInt();
+	    	  System.out.println("You select USER="+use);
+	    	  System.out.println("==================================================================================");
+	      } else {
+	    	  System.out.println("==================================================================================");
+	    	  System.out.println("ADMIN");
+	    	 
+	    	  System.out.println("You select ADMIN=");
+	    	  System.out.println("==================================================================================");
+	    	  
+	      }
+	    	  
+	} 
+		    	  
+	   	public static void StudentLoginAndRegister() {
 		System.out.println("==================================================================================");
 		
 		System.out.println("Welcome to Quiz Based Application");
@@ -21,20 +61,23 @@ public class StudentQuiz {
 		
 		choose=input.nextInt();
 		if(choose==1) {
+			System.out.println("Student Id=");
+			id=input.nextInt();
+			System.out.println("==============================================================================");
 			
-			System.out.println("Student First Name");
+			System.out.println("Student  Name=");
 			name=input.next();
 			System.out.println("==============================================================================");
 			
-			System.out.println("Student E-mail id");
+			System.out.println("Student E-mail id=");
 			email=input.next();
 			System.out.println("==============================================================================");
 			
-			System.out.println("Student Mobile number");
+			System.out.println("Student Mobile number=");
 			mobile=input.nextLong();
 			System.out.println("==============================================================================");
 			
-			System.out.println("Student password");
+			System.out.println("Student password=");
 			password=input.nextLong();
 			System.out.println("==============================================================================");
 			
@@ -44,12 +87,16 @@ public class StudentQuiz {
 		} else if(choose == 2){
 			System.out.println("=================================================================================");
 			
-			System.out.println("Student Name");
+			System.out.println("Student Id=");
+			id=input.nextInt();
+			System.out.println("==============================================================================");
+			
+			System.out.println("Student Name=");
 			name=input.next();
 			System.out.println("Student="+name);
 			System.out.println("=================================================================================");
 			
-			System.out.println("Student Password");
+			System.out.println("Student Password=");
 			password=input.nextLong();
 			System.out.println("Password="+password);
 			System.out.println("=================================================================================");
@@ -74,7 +121,7 @@ public class StudentQuiz {
 			choose1=input.nextInt();
 		if (choose1==2) {
 			System.out.println("your Answer is= Serialization ");
-			System.out.println("Your answer is right"+count++);
+			System.out.println("Your answer is right="+count++);
 			
 		} else {
 			System.out.println("Your answer is Wrong");
@@ -90,7 +137,7 @@ public class StudentQuiz {
 			choose2=input.nextInt();
 			if (choose2==2) {
 				System.out.println("your Answer is= IOException ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -103,7 +150,7 @@ public class StudentQuiz {
 			choose3=input.nextInt();
 			if (choose3==1) {
 				System.out.println("your Answer is= True ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -119,7 +166,7 @@ public class StudentQuiz {
 			choose4=input.nextInt();
 			if (choose4==3) {
 				System.out.println("your Answer is= StringList.foreach() ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -135,7 +182,7 @@ public class StudentQuiz {
 			choose5=input.nextInt();
 			if (choose5==1) {
 				System.out.println("your Answer is= Nashorn ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -151,7 +198,7 @@ public class StudentQuiz {
 			
 			if (choose6==1) {
 				System.out.println("your Answer is= Files.readAllLines() ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -166,7 +213,7 @@ public class StudentQuiz {
 			choose7=input.nextInt();
 			if (choose7==2) {
 				System.out.println("your Answer is= Autoclosable ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -182,7 +229,7 @@ public class StudentQuiz {
 			choose8=input.nextInt();
 			if (choose8==3) {
 				System.out.println("your Answer is= SessionManagement ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -198,7 +245,7 @@ public class StudentQuiz {
 			choose9=input.nextInt();
 			if (choose9==1) {
 				System.out.println("your Answer is= True ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -214,7 +261,7 @@ public class StudentQuiz {
 			choose10=input.nextInt();
 			if (choose10==1) {
 				System.out.println("your Answer is= Attached ");
-				System.out.println("Your answer is right"+count++);
+				System.out.println("Your answer is right="+count++);
 			} else {
 				System.out.println("Your answer is Wrong");
 			}
@@ -225,11 +272,144 @@ public class StudentQuiz {
 			System.out.println("==================================================================================");
 			
 		}
+		public static void insertdata() {
 		
+			
+			
+			System.out.println("Student Id=");
+			id=input.nextInt();
+			System.out.println("==============================================================================");
+			
+			System.out.println("Student Name=");
+			name=input.next();
+			System.out.println("Student="+name);
+			System.out.println("=================================================================================");
+			
+			System.out.println("Student Result=");
+			count=input.nextInt();
+			System.out.println("Student Result="+count);
+			System.out.println("=================================================================================");
+			
+			try {
+				
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				
+				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/user2", "root", "root");
+				String insertQuery = "insert into studentquizdata2(id,studentname,result)"+" values(id,'studentname',count)";
+				PreparedStatement ps = con.prepareStatement(insertQuery);
+				System.out.println("Enter student id");
+				
+				ps.setInt(1, id);
+				ps.setString(2 ,name);
+				ps.setInt(3, result);
+			
+				ResultSet rs=ps.executeQuery();
+				
+				if (rs.next()){
+					System.out.println("ID :"+rs.getInt(0));
+					System.out.println("studentname:"+rs.getString(1));
+					System.out.println("Result :"+rs.getInt(2));
+				}
+				else
+				{
+					System.out.println("Invalid student ID.............");
+				}
+
+               rs.close();
+               con.close();
+				
+				
+			}catch(Exception e) {
+				
+					e.printStackTrace();
+				}
+			}
+			public static void displayresult() {
+				
+			System.out.println("Student Id= "+id);
+			System.out.println("Student Name= "+name);
+			System.out.println("Total Result = "+count);
+		    }
+		
+				
+				public static  inserintostudentquizdata(String name,int result) {
+					try {
+						con = JDBCConnection.getConnectionDetails();
+						String query = "insert into studentdataquiz2(id,studentname,result)" + "values(?,?,?)";
+						    ps = con.prepareStatement(query);
+						    ps.setString(1,name);
+						    ps.setInt(2,result);
+						   
+			                  
+						    int i = ps.executeUpdate();
+						    
+						  System.out.println("Data insertion done successful!!!!!!!");
+						  
+				} catch (Exception e) {
+					
+				} finally {
+					try {
+					con.close();
+				} catch (SQLException e) {
+					// to auto generated catch block
+					e.printStackTrace();
+				}
+}
+}
+			
+				public static void execute(int input) {
+					Scanner sc = new Scanner(System.in);
+				
+					
+					for(int i=0;i<input;i++) {
+						System.out.println("Enter First Name >>");
+						String name=sc.next();
+						System.out.println("Enter your result >>");
+						String result=sc.next();
+			
+						
+						return name,result;
+						
+					}
+				}
+			public static void updateintodata() {
+				try {
+					
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/user", "root","root");
+					String query = "update studentquizdata2 set id =?,studentname=?,result=?";
+					
+					PreparedStatement ps=con.prepareStatement(query);
+					ps.setInt(1,id);
+					ps.setString(2,"studentname");
+					ps.setInt(3,result);
+					
+					ps.executeUpdate();
+					System.out.println("Update is done");
+					ps.close();
+					con.close();
+					} catch (Exception e) {
+						
+					}
+			   
+				    
+					
+				}
+						
 		public static void main(String[] args) {
-		
+			
+		   StudentQuiz.SelectUserOrAdmin();
            StudentQuiz.StudentLoginAndRegister();
            StudentQuiz.displayQuestion();
-	}
-
+           StudentQuiz.insertdata();
+           //StudentQuiz.updateintodata();
+           StudentQuiz.displayresult();
+       	  
+           //StudentQuiz.inserintostudentquizdata(name, result);
+       	   //StudentQuiz.execute(2);
+       	   
+       	   }
 }
+            
+
+
